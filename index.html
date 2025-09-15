@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>人類デスゲーム：じゃんけん勝ち抜き</title>
+	<link rel="stylesheet" href="styles.css" />
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-XXXXXXXXXX');  // ← 自分の GA4 測定IDに差し替え
+	</script>
+</head>
+
+<body>
+	<canvas id="fx"></canvas>
+	<div class="wrap">
+		<div class="card">
+			<h1 id="pageTitle">人類デスゲーム：じゃんけん勝ち抜き</h1>
+
+			<!-- Setup -->
+			<section id="screen-setup" class="screen active">
+				<p class="lead">
+					人類から<b>1人だけ</b>が生き残る。最も公平な方法――全世界同時じゃんけん。<br>
+					決着がついたときだけラウンドが進み、勝者は次の試合へ。勝ち続けた者だけが最後に残る。<br>
+					勝つのは、<i>人類で最も幸運なただ1人</i>――。
+				</p>
+				<div class="panel" style="text-align:center">
+					<label for="population" class="muted">初期人数</label><br>
+					<select id="population">
+						<option value="100">100人</option>
+						<option value="10000">1万人</option>
+						<option value="1000000">100万人</option>
+						<option value="8000000000" selected>80億人（世界規模）</option>
+					</select>
+					<div class="cta">
+						<button id="startBtn" class="primary" type="button">ゲームスタート！ ▶</button>
+					</div>
+				</div>
+
+				<!-- Best Record -->
+				<div class="panel" style="margin-top:16px">
+					<b>自己ベスト</b>
+					<div class="row" style="margin-top:10px">
+						<div class="stat">
+							<b>順位</b>
+							<div class="big" id="bestRankLbl">—</div>
+						</div>
+						<div class="stat">
+							<b>ベスト到達ラウンド</b>
+							<div class="big" id="bestRoundLbl">—</div>
+						</div>
+						<div class="stat">
+							<b>称号</b>
+							<div class="big" id="badgeList">未獲得</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Game -->
+			<section id="screen-game" class="screen">
+				<div class="panel" style="text-align:center;margin-bottom:18px">
+					<span class="muted">現在</span><br>
+					<span id="roundPill" class="big">ラウンド: 0</span>
+				</div>
+
+				<div class="row">
+					<div class="stat">
+						<b>残りライバル数</b>
+						<div class="big"><span id="rivalsLbl" class="tick">-</span></div>
+						<div class="muted" id="halvesLbl">（勝つと ⌊1/2⌋ になります）</div>
+					</div>
+					<div class="stat">
+						<b>いま負けたら最終順位</b>
+						<div class="big"><span id="rankPreviewLbl" class="tick">-</span></div>
+						<div class="muted">※あいこは人数変わらず（同ラウンド続行）</div>
+					</div>
+				</div>
+
+				<div class="cta" style="margin-top:24px">
+					<button class="hand" data-hand="グー" type="button">✊ グー</button>
+					<button class="hand" data-hand="チョキ" type="button">✌️ チョキ</button>
+					<button class="hand" data-hand="パー" type="button">🖐 パー</button>
+				</div>
+
+				<div class="muted" id="lastInfo" style="text-align:center;margin-top:12px"></div>
+			</section>
+
+			<!-- Victory -->
+			<section id="screen-victory" class="screen">
+				<div class="grid">
+					<div>
+						<div class="stat"><b>称号</b>
+							<div class="big"><span id="victoryTitle">世界一達成！</span></div>
+						</div>
+						<div class="stat"><b>最終順位</b>
+							<div class="big"><span id="victoryRankLbl">1</span></div>
+						</div>
+						<div class="stat"><b>到達ラウンド</b>
+							<div class="big"><span id="victoryRoundLbl">-</span></div>
+						</div>
+						<div class="stat"><b>初期人数</b>
+							<div class="big"><span id="victoryTotalLbl">-</span></div>
+						</div>
+					</div>
+					<div>
+						<div class="result win" id="victoryNarrative" style="margin-top:4px"></div>
+						<div class="cta victory-cta">
+							<a class="hand" id="victoryShareBtn" href="#" target="_blank" rel="noopener"
+								style="text-decoration:none">X（旧Twitter）で自慢する</a>
+							<button id="victoryRetryBtn" class="hand" type="button">もう一度</button>
+						</div>
+						<!-- 中央広告は無し（フッターのみ） -->
+					</div>
+				</div>
+			</section>
+
+			<!-- Round Modal -->
+			<div id="modal" class="modal" aria-hidden="true">
+				<div class="box" style="text-align:center">
+					<h3 id="roundTitle" style="margin:2px 0 8px 0">ラウンド結果</h3>
+					<div id="roundBanner" class="result draw" style="display:none"></div>
+					<div class="cta">
+						<button id="nextRoundBtn" class="primary" type="button" style="display:none">次のラウンドへ ▶</button>
+						<button id="toResultBtn" class="primary" type="button" style="display:none">リザルトへ ▶</button>
+						<button id="toVictoryBtn" class="primary" type="button" style="display:none">優勝リザルトへ ▶</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Result -->
+			<section id="screen-result" class="screen">
+				<div class="grid">
+					<div>
+						<div class="stat"><b>最終順位</b>
+							<div class="big"><span id="finalRankLbl">-</span></div>
+						</div>
+						<div class="stat"><b>到達ラウンド</b>
+							<div class="big"><span id="reachRoundLbl">-</span></div>
+						</div>
+						<div class="stat"><b>初期人数</b>
+							<div class="big"><span id="totalLbl">-</span></div>
+						</div>
+					</div>
+					<div>
+						<div class="result lose" id="finalNarrative" style="margin-top:4px"></div>
+						<div class="cta">
+							<a class="hand" id="shareBtn" href="#" target="_blank" rel="noopener"
+								style="text-decoration:none">X（旧Twitter）に投稿</a>
+							<button id="retryBtn" class="hand" type="button">もう一度</button>
+						</div>
+						<div class="ad" style="margin-top:14px"><b>（広告枠）</b> リザルト横</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Footer -->
+			<footer class="muted" style="margin-top:28px;text-align:center;font-size:14px">
+				<a href="howto.html">遊び方</a> ｜
+				<a href="odds.html">勝率</a> ｜
+				<a href="privacy.html">プライバシー</a> ｜
+				<a href="terms.html">利用規約</a> ｜
+				<a href="about.html">このサイトについて</a>
+				<div id="footerAd" class="ad" style="margin-top:16px"><b>（広告枠）</b> 初期画面下の広告</div>
+			</footer>
+
+		</div>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+
+</html>

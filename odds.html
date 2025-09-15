@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>勝率と必要勝利数｜人類デスゲーム：じゃんけん勝ち抜き</title>
+	<link rel="stylesheet" href="styles.css" />
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-XXXXXXXXXX');  // ← 自分の GA4 測定IDに差し替え
+	</script>
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="card">
+			<h1>勝率と必要勝利数</h1>
+			<p class="lead">
+				このゲームは「あいこで同ラウンド続行、勝敗がついた時だけラウンド+1」というルールです。<br>
+				初期人数 <b>N</b> のとき、最後の1人になるための <b>理論上の必要勝利数</b> はおおむね <code>ceil(log2(N))</code> です。
+			</p>
+
+			<table style="width:100%;border-collapse:collapse;margin-top:20px">
+				<thead>
+					<tr style="background:#101437">
+						<th style="padding:8px;border:1px solid #2a3152">ステージ人数</th>
+						<th style="padding:8px;border:1px solid #2a3152">必要勝利数</th>
+						<th style="padding:8px;border:1px solid #2a3152">優勝確率（理論値）</th>
+						<th style="padding:8px;border:1px solid #2a3152">日常の例え</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="padding:8px;border:1px solid #2a3152">100人</td>
+						<td style="padding:8px;border:1px solid #2a3152">7回</td>
+						<td style="padding:8px;border:1px solid #2a3152">約 1/128（0.78%）</td>
+						<td style="padding:8px;border:1px solid #2a3152">町内抽選で当たりを引くくらい</td>
+					</tr>
+					<tr>
+						<td style="padding:8px;border:1px solid #2a3152">1万人</td>
+						<td style="padding:8px;border:1px solid #2a3152">14回</td>
+						<td style="padding:8px;border:1px solid #2a3152">約 1/16,384（0.0061%）</td>
+						<td style="padding:8px;border:1px solid #2a3152">満員の東京ドームで抽選1名に当たる</td>
+					</tr>
+					<tr>
+						<td style="padding:8px;border:1px solid #2a3152">100万人</td>
+						<td style="padding:8px;border:1px solid #2a3152">20回</td>
+						<td style="padding:8px;border:1px solid #2a3152">約 1/1,048,576（0.000095%）</td>
+						<td style="padding:8px;border:1px solid #2a3152">懸賞キャンペーンの「年間当選者1人」に選ばれる</td>
+					</tr>
+					<tr>
+						<td style="padding:8px;border:1px solid #2a3152">80億人（世界規模）</td>
+						<td style="padding:8px;border:1px solid #2a3152">33回</td>
+						<td style="padding:8px;border:1px solid #2a3152">約 1/8,589,934,592</td>
+						<td style="padding:8px;border:1px solid #2a3152">ジャンボ宝くじ1等を数百回連続で当てるより低い<br>雷に直撃される確率の何十倍も低い
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="muted" style="margin-top:12px">
+				※実際のプレイでは「あいこ」があるため、必要な試行回数はさらに増えます。<br>
+				※確率は理想化した理論値であり、実際の結果を保証するものではありません。
+			</p>
+
+			<!-- Footer with Ad -->
+			<footer class="muted" style="margin-top:28px;text-align:center;font-size:14px">
+				<a href="index.html">トップに戻る</a> ｜
+				<a href="howto.html">遊び方</a> ｜
+				<a href="privacy.html">プライバシー</a> ｜
+				<a href="terms.html">利用規約</a> ｜
+				<a href="about.html">このサイトについて</a>
+				<div class="ad" style="margin-top:16px"><b>（広告枠）</b> 勝率ページ下の広告</div>
+			</footer>
+
+		</div>
+	</div>
+</body>
+
+</html>
