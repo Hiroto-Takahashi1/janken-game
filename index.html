@@ -6,14 +6,19 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>人類デスゲーム：じゃんけん勝ち抜き</title>
 	<link rel="stylesheet" href="styles.css" />
+
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag() {dataLayer.push(arguments);}
+		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 		gtag('config', 'G-XXXXXXXXXX');  // ← 自分の GA4 測定IDに差し替え
 	</script>
+
+	<!-- Google AdSense 自動広告 -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6758111223171316"
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -115,7 +120,7 @@
 								style="text-decoration:none">X（旧Twitter）で自慢する</a>
 							<button id="victoryRetryBtn" class="hand" type="button">もう一度</button>
 						</div>
-						<!-- 中央広告は無し（フッターのみ） -->
+						<!-- 中央広告は無し -->
 					</div>
 				</div>
 			</section>
@@ -154,7 +159,7 @@
 								style="text-decoration:none">X（旧Twitter）に投稿</a>
 							<button id="retryBtn" class="hand" type="button">もう一度</button>
 						</div>
-						<div class="ad" style="margin-top:14px"><b>（広告枠）</b> リザルト横</div>
+						<!-- リザルト横広告削除済み -->
 					</div>
 				</div>
 			</section>
@@ -166,9 +171,8 @@
 				<a href="privacy.html">プライバシー</a> ｜
 				<a href="terms.html">利用規約</a> ｜
 				<a href="about.html">このサイトについて</a>
-				<div id="footerAd" class="ad" style="margin-top:16px"><b>（広告枠）</b> 初期画面下の広告</div>
+				<!-- 初期画面下広告削除済み -->
 			</footer>
-
 		</div>
 	</div>
 

@@ -1,0 +1,4 @@
+# AdSense 承認後に以下のように記述し、サイト直下に配置予定
+# pub-XXXXXXXXXXXX を自分のサイト運営者IDに差し替え
+
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
