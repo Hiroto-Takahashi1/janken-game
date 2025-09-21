@@ -208,10 +208,12 @@ function goResult() {
 	el("totalLbl").textContent = fmt(total);
 	el("finalNarrative").innerHTML =
 		`その日、あなたは人類最強には選ばれなかった。<br>だが <b>${fmt(finalRank)}</b> 位は、確かにあなたが掴み取った結果だ。`;
-	const text = `人類デスゲームで最終順位は ${fmt(finalRank)} 位でした（確定R:${round}）`;
+
+	// ▼ 修正版 共有テキスト & ハッシュタグ
+	const text = `人類同時じゃんけんに参加しました。結果は ${fmt(total)} 人中 ${fmt(finalRank)} 位でした。あなたも挑戦してみて！`;
 	const url = location.origin + location.pathname;
 	el("shareBtn").href =
-		`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent("人類デスゲーム,じゃんけん")}`;
+		`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent("人類同時じゃんけん,じゃんけんチャレンジ")}`;
 
 	saveBestRecord(total, finalRank);
 	const bestRound = localStorage.getItem(LS_KEYS.bestRound);
@@ -229,10 +231,11 @@ function goVictory() {
 	el("victoryTotalLbl").textContent = fmt(total);
 	el("victoryNarrative").innerHTML = vc.msg;
 
-	const text = `${vc.title} 人類デスゲームを制覇（R:${round} / 初期:${fmt(total)}）`;
+	// ▼ 修正版 共有テキスト & ハッシュタグ
+	const text = `人類同時じゃんけんに参加しました。結果は ${fmt(total)} 人中 1 位でした！あなたも挑戦してみて！`;
 	const url = location.origin + location.pathname;
 	el("victoryShareBtn").href =
-		`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(vc.hashtag)}`;
+		`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent("人類同時じゃんけん,じゃんけんチャレンジ")}`;
 
 	// 新規称号付与（全称号は常時キラキラ、新規は強フラッシュも）
 	const t = titleFor(total);
